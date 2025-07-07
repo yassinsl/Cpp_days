@@ -6,15 +6,17 @@
 /*   By: ylahssin <ylahssin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 11:59:50 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/06/12 13:06:52 by ylahssin         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:44:06 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "megaphone.hpp"
 
-#define CHANGE_TO_UPPER(ptr, j) while(ptr[++j]) ptr[j] = (ptr[j] >= 'a' && ptr[j] <= 'z') ? ptr[j] - 32 : ptr[j]
-
-#define ERRORMSG "* LOUD AND UNBEARABLE FEEDBACK NOISE *"
+void CHANGE_TO_UPPER(char *ptr, int j) 
+{
+	while(ptr[++j]) 
+		ptr[j] = (ptr[j] >= 'a' && ptr[j] <= 'z') ? ptr[j] - 32 : ptr[j];
+}
 
 int main(int ac, char **av)
 {
