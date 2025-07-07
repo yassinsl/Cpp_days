@@ -9,23 +9,24 @@
 /*   Updated: 2025/06/19 17:46:16 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#pragma once
+#include <iostream>
+#include <string>
 
-#ifndef PHONEBOOK_H
-#define PHONEBOOK_H
-class PhoneBook
-{
-	public:
-		Contact contacts[8];
-    int idx = 0;
-}
-class Contact{
-	private:
-		std::string name;
-		std::string phoneNumber;
-		std::string email;
-		std::string address; 
-  public:
-    void add_fuctions(Contact contact);
-}
-void contact::add_function
-#endif
+class Contact {
+public:
+    std::string name;
+    std::string last_name;
+    std::string phoneNumber;
+    std::string nickname;
+
+    int add(Contact *contacts, int idx);
+    void search(Contact *contacts, int idx);
+};
+
+class PhoneBook {
+public:
+    Contact contacts[8];
+    int idx;
+    PhoneBook();
+};

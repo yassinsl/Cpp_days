@@ -15,6 +15,7 @@
 #define CHANGE_TO_UPPER(ptr, j) while(ptr[++j]) ptr[j] = (ptr[j] >= 'a' && ptr[j] <= 'z') ? ptr[j] - 32 : ptr[j]
 
 #define ERRORMSG "* LOUD AND UNBEARABLE FEEDBACK NOISE *"
+
 int main(int ac, char **av)
 {
   int i = 1;

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.h"
-#include <iostream>
+#include "PhoneBook.hpp"
 
 #define ERROR_MSG "\033[31mplease enter just Search or ADD or Exit\033[0m"
 #define MSG "\033[32mPLEASE Enter SEARCH OR ADD Or EXIT>> \033[0m"
@@ -19,30 +18,8 @@
 #define SEARCH "SEARCH"
 #define EXIT "EXIT"
 
-void get_content(PhoneBook contact)
-{
-	if(contact.idx == 8)
-		contact.idx = 0; 
-	std::add_fuction(contact.contacts[contact.idx++]);
-}
-int get_data_from_user(PhoneBook contact)
-{
-	string cmp;
-	std::cout << MSG;
-	std::cin >> cmp;
-	switch(cmp)
-	{
-		case "ADD":
-			get_content(contact);
-			break;
-	}
-}
 int main(void)
 {
 	PhoneBook Create_Contact;
-
-	while(1)
-		if(get_data_from_user(Create_Contact))
-			ft_error_msg(ERROR_MSD);
-	return 0;
+	return (0);
 }
