@@ -1,16 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_a_content.cpp                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 16:56:09 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/07/07 16:56:16 by ylahssin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "PhoneBook.hpp"
+#include <iomanip>
+#define HI "\033[1;31m Hello! You're now using your brand-new contact manager.😊\033[0m"
+#define TYPING "\033[1;32mPlease Enter ADD Or SEARCH , EXIT: \033[0m"
+#define MSG_PURPLE "\033[35mType a contact's index to obtain personal informations: \033[0m"
 
 int Contact::add(Contact *contact, int idx)
 {
