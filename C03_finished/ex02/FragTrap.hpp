@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:38:56 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/13 19:55:19 by ylahssin         ###   ########.fr       */
+/*   Created: 2025/10/13 19:36:06 by ylahssin          #+#    #+#             */
+/*   Updated: 2025/10/13 19:53:19 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
+#pragma once
 
-int main(void)
+#include "ClapTrap.hpp"
+#define C_FRAGTRAP "Constructor FragTrap Created :)"
+class FragTrap: public ClapTrap
 {
-	FragTrap n("yassin");
-	n.attack("uyassfijhdskf");
-	n.highFivesGuys();
-	n.takeDamage(23);
-	n.beRepaired(20);
-}
+	public:
+		FragTrap(str name);
+		~FragTrap();
+		void highFivesGuys(void);
+};
+

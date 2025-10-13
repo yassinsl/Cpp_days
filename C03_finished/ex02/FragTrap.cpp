@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 11:38:56 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/13 19:55:19 by ylahssin         ###   ########.fr       */
+/*   Created: 2025/10/13 19:52:36 by ylahssin          #+#    #+#             */
+/*   Updated: 2025/10/13 19:53:27 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 
-int main(void)
+FragTrap::FragTrap(str name):ClapTrap(name)
 {
-	FragTrap n("yassin");
-	n.attack("uyassfijhdskf");
-	n.highFivesGuys();
-	n.takeDamage(23);
-	n.beRepaired(20);
+
+	HitPoint = 100;
+	EnergPoint = 100;
+	AttackDamage = 30;
 }
+FragTrap::~FragTrap(){cout << C_FRAGTRAP << endl;}
+
+void FragTrap::highFivesGuys(void){cout << "FragTrap " << name << " request a positive high five" << endl;}
+

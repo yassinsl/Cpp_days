@@ -4,10 +4,12 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 GREEN = \033[0;32m
 RESET = \033[0m
 
-NAME = ClapTrap
+NAME = ScavTrap
 
 SRC = 	main.cpp \
 		ClapTrap.cpp \
+		ScavTrap.cpp\
+		FragTrap.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
