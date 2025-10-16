@@ -1,32 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 11:38:56 by ylahssin          #+#    #+#             */
+/*   Updated: 2025/10/13 15:12:15 by ylahssin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
-
-str ClapTrap::getName(){return this->name;}
-int ClapTrap::getattackDamage(){return this->AttackDamage;}
-
-ScavTrap::ScavTrap(str name): ClapTrap(name){
-  cout << "ScavTrap constructed!" << endl;
-}
-
-void ScavTrap::guardGate()
-{
-    cout << "ScavTrap is now in Gate keeper mode!" << endl;
-}
-
-ScavTrap::~ScavTrap() {
-  cout << "ScavTrap destroyed!" << endl;
-}
-void ScavTrap::attack(const std::string &target) {
-    cout << "ScavTrap " << this->getName() << " attacks " << target
-              << ", causing " << this->getattackDamage() << " points of damage!" << endl;
-}
 
 int main(void)
 {
-        ScavTrap a("Yassin");
-        ScavTrap b("Reda");
-
-        a.attack("Reda");
-        b.takeDamage(5);
-        b.beRepaired(3);
+	ScavTrap n("yassin");
+	n.attack("uyassfijhdskf");
+	n.guardGate();
+	n.takeDamage(23);
+	n.beRepaired(20);
 }

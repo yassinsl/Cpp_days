@@ -6,7 +6,7 @@
 /*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 08:45:55 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/13 14:22:14 by ylahssin         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:37:43 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class ClapTrap
 	public:
 		ClapTrap(const str name);
 		~ClapTrap();
-		void attack(const std::string& target);
+		virtual void attack(const std::string& target);
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
 };

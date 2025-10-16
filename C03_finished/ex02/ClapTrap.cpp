@@ -6,7 +6,7 @@
 /*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:31:53 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/13 11:56:07 by ylahssin         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:36:22 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 		this->HitPoint-= amount;
 		if(this->HitPoint <= 0) this->HitPoint = 0;
 		ss2 << this->HitPoint;
-		cout << FIGHTER_MSG << FIGHTER_MSG << this->name <<  " takes " << ss.str()
+		cout << FIGHTER_MSG << this->name <<  " takes " << ss.str()
 			 << " Point of damage, remaining HP : " << ss2.str() << endl;
 }	
 void ClapTrap::beRepaired(unsigned int amount)

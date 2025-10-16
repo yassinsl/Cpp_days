@@ -18,7 +18,7 @@ FragTrap& FragTrap::operator=(FragTrap &obj)
 	{
 	if(this != &obj)
 		 this->name = obj.name, this->HitPoint = obj.HitPoint,
-		 this->EnergPoint = obj.EnergPoint, this->AttackDamage = obj.AttackDamage;
+		 this->EnergyPoint = obj.EnergyPoint, this->AttackDamage = obj.AttackDamage;
 	return *this;
 }
 
@@ -26,7 +26,7 @@ FragTrap::FragTrap(str name):ClapTrap(name)
 {
 
 	HitPoint = 100;
-	EnergPoint = 100;
+	EnergyPoint = 100;
 	AttackDamage = 30;
 }
 FragTrap::~FragTrap(){cout << C_FRAGTRAP << endl;}

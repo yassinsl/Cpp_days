@@ -5,19 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 15:53:57 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/08 15:55:17 by ylahssin         ###   ########.fr       */
+/*   Created: 2025/10/13 11:38:56 by ylahssin          #+#    #+#             */
+/*   Updated: 2025/10/13 11:56:13 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "ClapTrap.hpp"
+#include "ClapTrap.hpp"
 
 int main(void)
 {
-	ClapTrap a("Yassin");
-	ClapTrap b("Reda");
-
-	a.attack("Reda");
-	b.takeDamage(5);
-	b.beRepaired(3);
+	ClapTrap n("yassin");
+	n.attack("ilias zahr");
+	n.takeDamage(23);
+	n.beRepaired(20);
 }

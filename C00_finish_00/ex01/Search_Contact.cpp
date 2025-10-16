@@ -6,7 +6,7 @@
 /*   By: ylahssin <ylahssin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:32:57 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/03 10:07:45 by ylahssin         ###   ########.fr       */
+/*   Updated: 2025/10/04 09:35:45 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,34 @@ str formatColumn(const str &str, int width)
     return str;
 }
 
+void printSeparator(int width, int columns) {
+    for (int i = 0; i < columns; i++) {
+        std::cout << "+" << std::string(width, '-');
+    }
+    std::cout << "+" << std::endl;
+}
+
 void printTable(const PhoneBook &Book) 
 {
     int width = 10;
+    int columns = 4;
 
-    std::cout << std::setw(width) << "index"     << " | "
-              << std::setw(width) << "first name"<< " | "
-              << std::setw(width) << "last name" << " | "
-              << std::setw(width) << "nickname"  << " | "
-              << std::setw(width) << "Phone Number"  << " | "
-              << std::setw(width) << "Darck Secret"  << " | "
-              << std::endl;
-    for (int i = 0; i < Book.num; i++) 
-    {
-        std::cout << std::setw(width) << i << " | "
-                  << std::setw(width) << formatColumn(Book.contacts[i].first_name, width) << " | "
-                  << std::setw(width) << formatColumn(Book.contacts[i].last_name, width)  << " | "
-                  << std::setw(width) << formatColumn(Book.contacts[i].nackname, width)   << " | "
-                  << std::setw(width) << formatColumn(Book.contacts[i].phone_number, width)  << " | "
-                  << std::setw(width) << formatColumn(Book.contacts[i].darck_secret, width)  << " | "
-                  << std::endl;
+    printSeparator(width, columns);
+    std::cout << "|" << std::setw(width) << "Index"
+              << "|" << std::setw(width) << "First Name"
+              << "|" << std::setw(width) << "Last Name"
+              << "|" << std::setw(width) << "Nick Name"
+              << "|" << std::endl;
+    printSeparator(width, columns);
+    for (int i = 0; i < Book.num; i++) {
+        std::cout << "|" << std::setw(width) << i
+                  << "|" << std::setw(width) << formatColumn(Book.contacts[i].first_name, width)
+                  << "|" << std::setw(width) << formatColumn(Book.contacts[i].last_name, width)
+                  << "|" << std::setw(width) << formatColumn(Book.contacts[i].nackname, width)
+                  << "|" << std::endl;
     }
+    printSeparator(width, columns);
 }
-
 void print_user(PhoneBook &Book, int num)
 {
         if(!(num >= 0 && num <= Book.idx))
@@ -52,7 +57,9 @@ void print_user(PhoneBook &Book, int num)
         std::cout << "Index: " << num << std::endl;
         std::cout << "First Name: " << Book.contacts[num].first_name << std::endl;
         std::cout << "Last Name: " << Book.contacts[num].last_name << std::endl;
+        std::cout << "Phone NUMBER: " << Book.contacts[num].phone_number << std::endl;
         std::cout << "Nick Name: " << Book.contacts[num].nackname << std::endl;
+        std::cout << "Darck Secret: " << Book.contacts[num].nackname << std::endl;
 }
 
 int Contact::Search(PhoneBook &Book)

@@ -1,23 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 19:36:06 by ylahssin          #+#    #+#             */
+/*   Updated: 2025/10/15 18:05:31 by ylahssin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#pragma once
+
 #include "ClapTrap.hpp"
+#define C_FRAGTRAP "Constructor FragTrap Created :)"
 
-class FragTrap::public ClapTrap
+class FragTrap: virtual public ClapTrap
 {
-    public:
-        FragTrap(str name);
-        ~FragTrap();
-        void highFivesGuys(void);
+	public:
+		FragTrap(str name);
+		FragTrap(FragTrap &obj);
+		~FragTrap();
+		FragTrap& operator=(FragTrap &obj);
+		void highFivesGuys(void);
 };
-
-FragTrap::FragTrap(str name): ClapTrap(name){
-    cout << "ScavTrap Constructed" << endl;
-     this->setHitPoints(100);
-     this->setEnergyPoints(100);
-     this->setAttackDamage(30);
-}
-
-FragTrap::~FragTrap(){cout << "FragTrap destroyed" << endl;}
-
-void FragTrap::highFivesGuys(void)
-{
-  cout << this->getName() << "FragTrap requests a high five! 🙌" << endl;
-}

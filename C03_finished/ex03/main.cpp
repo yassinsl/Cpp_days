@@ -1,32 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylahssin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 11:38:56 by ylahssin          #+#    #+#             */
+/*   Updated: 2025/10/14 15:31:43 by ylahssin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "ScavTrap.hpp"
-
-str ClapTrap::getName(){return this->name;}
-int ClapTrap::getattackDamage(){return this->AttackDamage;}
-
-ScavTrap::ScavTrap(str name): ClapTrap(name){
-  cout << "ScavTrap constructed!" << endl;
-}
-
-void ScavTrap::guardGate()
-{
-    cout << "ScavTrap is now in Gate keeper mode!" << endl;
-}
-
-ScavTrap::~ScavTrap() {
-  cout << "ScavTrap destroyed!" << endl;
-}
-void ScavTrap::attack(const std::string &target) {
-    cout << "ScavTrap " << this->getName() << " attacks " << target
-              << ", causing " << this->getattackDamage() << " points of damage!" << endl;
-}
+#include "DiamondTrap.hpp"
 
 int main(void)
 {
-        ScavTrap a("Yassin");
-        ScavTrap b("Reda");
-
-        a.attack("Reda");
-        b.takeDamage(5);
-        b.beRepaired(3);
+	DiamondTrap monster("Yassin");
+	
+	monster.attack("Enemy");
+cout << "----------------------------------" << endl;
+	monster.whoAmI();
 }
+

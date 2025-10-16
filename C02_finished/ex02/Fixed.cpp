@@ -6,7 +6,7 @@
 /*   By: ylahssin <ylahssin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:29:12 by ylahssin          #+#    #+#             */
-/*   Updated: 2025/10/06 18:30:14 by ylahssin         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:27:58 by ylahssin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ Fixed Fixed::operator--(int)
 }
 float Fixed::toFloat(void) const
 {
-	return static_cast<float>(this->_rawBits) / 256.0f;
+	return static_cast<float>(this->_rawBits) / (1 << this->fractionel);
 }
 std::ostream& operator<<(std::ostream& os, const Fixed& obj){
 	os << obj.toFloat();
@@ -113,7 +113,7 @@ Fixed::Fixed(int nb):_rawBits(nb * 256){}
 
 Fixed::Fixed(float nb)
 {
-	this->_rawBits = static_cast<int>(roundf(nb * 256));
+	this->_rawBits = static_cast<int>(roundf(nb * (1 << this->fractionel)));
 } 
 
 Fixed::Fixed(const Fixed &obj)
