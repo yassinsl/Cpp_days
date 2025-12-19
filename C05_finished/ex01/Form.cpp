@@ -3,12 +3,12 @@
 
 Form::Form():name("Form"),isSigned(false), gradeTosign(10), gradeToExecute(4){};
 
-Form::~Form(){}
+Form::~Form(){std::cout << "died Form" << std::endl;}
 const string & Form::getName(){return this->name;};
 void Form::besigned(Bureaucrat &obj)
 {
-  if(obj.GetGrade() <= this->gradeTosign)
-      this->isSigned = true;
+  if(obj.getGrade() <= this->gradeTosign)
+     this->isSigned = true;
   else throw Form::GradeTooLowException();
 }
 char const *Form::GradeTooLowException::what() const throw() {return "Grade to lower";}
@@ -18,11 +18,16 @@ void Bureaucrat::signForm(Form &other)
 try
   {
     other.besigned(*this);
-    std::cout  << this->name << "signed" << other.getName() << std::endl;
+    std::cout  << this->_name << " signed " << other.getName() << std::endl;
   }
 catch(std::exception &e)
   {
-      std::cout << this->name << "couldn't sign " << other.getName() << "because "<< e.what() << std::endl;        
+      std::cout << this->_name << "couldn't sign " << other.getName() << "because "<< e.what() << std::endl;        
   }
-  //throw other.GradeTooLowerException();
+}
+int main()
+{
+  Form form;
+  Bureaucrat bureaucrat;
+  bureaucrat.signForm(form);
 }

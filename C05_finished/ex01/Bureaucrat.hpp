@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include <exception>
-#include "Form.hpp"
 
 typedef std::string string;
 
@@ -13,7 +12,7 @@ typedef std::string string;
 #define GREEN_CTOR          "\033[32mconstructor called 🟢\033[0m"
 #define GREEN_CPY_CTOR      "\033[32mcopy constructor called 🟢\033[0m"
 #define GREEN_CPY_ASI       "\033[32mcopy assignement called 🟢\033[0m"
-
+class Form;
 class Bureaucrat {
 private:
     const string _name;
@@ -30,7 +29,7 @@ public:
     int           getGrade() const;
     void incrementGrade();
     void decrementGrade();
-    void singForm(Form &other); 
+    void signForm(Form &other); 
     class GradeTooHighException : public std::exception {
     public:
         virtual const char* what() const throw();

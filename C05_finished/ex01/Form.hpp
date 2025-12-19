@@ -1,20 +1,18 @@
-#include "Bureaucrat.hpp"
-
+#pragma once
+#include <iostream>
 typedef std::string string;
-
+class Bureaucrat;
 class Form {
   private:
     const string name;
     bool isSigned;
     const int gradeTosign;
     int gradeToExecute;
-
+  public:
     Form();
     ~Form();
     void besigned(Bureaucrat &obj);
     const string & getName();
-
-  public:
     class GradeTooHighException:public std::exception{
       public: virtual const char *what() const throw();
     };
