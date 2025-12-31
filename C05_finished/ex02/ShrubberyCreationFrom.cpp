@@ -1,19 +1,18 @@
-#include "ShrubberyCreationForm.hpp"
+#include "ShrbberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(): target("_target"), AForm("Shrubbery", 145, 137){}
+ShrubberyCreationForm::ShrubberyCreationForm(string target):AForm("Shrubbery", 145, 137), target(target){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(string target, const string name): target(target), AForm(name, 145, 137){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other): target(other.target), AForm(other.GetName(), 145, 137){}
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other): AForm(other), target(other.target){}
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-ShrubberyCreationForm::executeAction() const 
+void ShrubberyCreationForm::executeAction() const 
 {
-  string name = "_shrubbery";
+  string name = this-> target + "_shrubbery";
   char arr[3] = {'0', 'O', 'o'};
-  static int ran;
-  std::ofstream File(this->target + name);
+  int len;
+  std::ofstream File(name.c_str());
   srand(time(NULL));
   if (!File.is_open()){
     std::cerr << "Cannot Open A File" << std::endl;
@@ -24,7 +23,7 @@ ShrubberyCreationForm::executeAction() const
     int starts = (2 * i) + 1;
     for(int j = 0; j < space; j++) File<< " ";
     for(int j = 0; j < starts; j++){
-      char sh = "*";
+      char sh = '*';
       if(j && j != starts -1)
       {
         int r = rand() % 100; 
@@ -34,8 +33,8 @@ ShrubberyCreationForm::executeAction() const
         } 
         File << sh;
       }
-      File << "\n";
     }
+      File << "\n";
   }
   int treeWith = (2 * H) - 1;
   int leftPad = (treeWith - TRUNKWITH) / 2;

@@ -1,9 +1,34 @@
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "ShrbberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main()
 {
-  Bureaucrat person1;
-  Form person2("yassin", 4, 5);
+  srand(time(NULL));
+    try
+    {
+        Bureaucrat boss("Boss", 1);
+        Bureaucrat intern("Intern", 150);
 
-  person1.signForm(person2);
+        ShrubberyCreationForm shrub("home");
+        RobotomyRequestForm robo("Bender");
+        PresidentialPardonForm pardon("Arthur Dent");
+
+        intern.signForm(shrub);
+        intern.executeForm(shrub);
+
+        boss.signForm(robo);
+        boss.signForm(pardon);
+
+        intern.executeForm(robo);
+
+        boss.executeForm(shrub);
+        boss.executeForm(robo);
+        boss.executeForm(pardon);
+    }
+    catch (std::exception &e){
+        std::cout << "Exception caught in main: " << e.what() << std::endl;
+    }
 }
+

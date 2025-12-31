@@ -1,20 +1,22 @@
-#include "RobotmyRequestForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(): AForm("ROBBOTMY",72, 45), _target(target){}
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
+: AForm("RobotomyRequestForm", 72, 45), _target(target){}
 
-RobotomyRequestForm::RobotomyRequestForm(string target, string name): AForm(name,  72, 45), _target(target){}
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other)
+: AForm(other),_target(other._target){}
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other):AForm(other.name, other.grade_to_sign, other.grade_to_execute), _target(target);
+RobotomyRequestForm::~RobotomyRequestForm(){}
 
-void RobotomyRequestForm::executeAction() const{
-  std::cout << "drilling noises" << std::endl;
-  //TODO: remove srand in this function
-  srand(time((void *)0));
-  int num = rand();
+const std::string &RobotomyRequestForm::getTarget() const{return this->_target;}
 
-  if(!(num % 2)) 
-      std::cout << this->GetTarget() << "has been robotmized successfully.";
-  else 
-    std::cout << other.name << " failed on " << this->GetTarget();
-  std::cout << "\n";
+void RobotomyRequestForm::executeAction() const
+{
+    std::cout << "* drilling noises *" << std::endl;
+
+    if (std::rand() % 2 == 0)
+        std::cout << _target << " has been robotomized successfully." << std::endl;
+    else
+        std::cout << "Robotomy failed on " << _target << "." << std::endl;
 }
+

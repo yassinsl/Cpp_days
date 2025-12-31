@@ -6,7 +6,8 @@
 #define H 30
 #define TRUNKHEIGHT 60
 #define TRUNKWITH 20
-
+#define EXCEPTION_SIGNED "Error : cannot sign the Form('the winner take it all')"
+class Bureaucrat;
 class AForm {
   private:
     const string name;
@@ -32,6 +33,10 @@ class AForm {
          virtual const char* what() const throw();
       };
       class GradeTooLowException : public std::exception {
+        public:
+          virtual const char* what() const throw();
+      };
+      class FromNotSignedExecption : public std::exception {
         public:
           virtual const char* what() const throw();
       };

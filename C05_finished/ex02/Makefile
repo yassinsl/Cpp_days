@@ -4,11 +4,15 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 GREEN = \033[0;32m
 RESET = \033[0m
 
-NAME = Form 
+NAME = Burceaucrat
 
 SRC = 	main.cpp \
 				Bureaucrat.cpp \
-				Form.cpp
+				AForm.cpp\
+				PresidentialPardonForm.cpp\
+				ShrubberyCreationFrom.cpp\
+				RobotomyRequestForm.cpp\
+
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
