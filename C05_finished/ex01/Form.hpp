@@ -1,22 +1,23 @@
 #pragma once
 #include "Bureaucrat.hpp"
 
-class From {
+class Form {
   private:
     const string name;
     bool sign;
     const int grade_to_sign;
     const int grade_to_execute;
   public:
-  From();
-  From(const string& name, int sign, int grade_to_sign, int grade_to_execute);
-  From(Form& other);
-  From& operator=(From& other);
+  Form();
+  ~Form();
+  Form(const string& name, int grade_to_sign, int grade_to_execute);
+  Form(Form& other);
+  Form& operator=(Form& other);
   int get_sign_grade() const;
   int get_execute_grade() const;
-  const string& getName() const;
+  const string& GetName() const;
   int get_sign() const;
-  void beSigned(Bureaucrat &obj) const;
+  void beSigned(const Bureaucrat &obj);
 
   class GradeTooHighException : public std::exception {
     public:

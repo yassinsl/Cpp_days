@@ -13,11 +13,11 @@ typedef std::string string;
 #define GREEN_CPY_CTOR      "\033[32mcopy constructor called 🟢\033[0m"
 #define GREEN_CPY_ASI       "\033[32mcopy assignement called 🟢\033[0m"
 
+class Form;
 class Bureaucrat {
 private:
     int          grade;
     const string name;
-
 public:
     Bureaucrat();
     Bureaucrat(const string& name, int grade);
@@ -30,7 +30,7 @@ public:
 
     void incrementGrade();
     void decrementGrade();
-    void singForm(const Form& other) const; 
+    void signForm(Form& other) const; 
     class GradeTooHighException : public std::exception {
     public:
         virtual const char* what() const throw();

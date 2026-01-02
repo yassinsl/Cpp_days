@@ -1,11 +1,9 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main()
 {
-  Bureaucrat person_1;
-  try{
-    person_1.incrementGrade();
-  }
-  catch(std::exception &e) {std::cout << e.what() << std::endl;}
-  return 0; 
+  Bureaucrat Boss("boos", 12);
+  Form me("yassin", 120, 1);
+  Boss.signForm(me);
 }
