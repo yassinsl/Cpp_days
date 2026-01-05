@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cerrno> 
 
+
 #define ERORR_ARC "Usage: ./convert <literal>"
 #define SUCCESS 0
 #define FAIL 1 
@@ -31,12 +32,22 @@ int Check_validite_argement(const string &literal, double *base)
   }
   return true;
 }
+void print_char(double base)
+{
+  if(errno ==  ERANGE)
+    printLn("char :: Emposible");
+  else if(std::isprint(static_cast<unsigned char> base)
+      printLn("char::  ")
+}
+void print_convert(double base){
+  print_char(base);
+}
 static void ScalarConverter::convert(const string &literal)
 {
   double base;
   if(!Check_validite_argement(literal, base))
       throw ExceptionError(VALIDITE_ARGS);
-
+  print_convert(base);
 }
 int printLn(std::string &msg, int status)
 {
