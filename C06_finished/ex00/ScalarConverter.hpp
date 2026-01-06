@@ -1,69 +1,40 @@
 #pragma once
+
 #include <iostream>
 #include <cstdlib>
-#include <cerrno> 
-//std::strtod : convet string to double or flaoting 
-//std::strtof : convet to flaoting 
+#include <cerrno>
+#include <cstring>
+#include <cmath>
+#include <climits>
+#include <exception>
+#include <cctype>
 
 #define ERORR_ARC "Usage: ./convert <literal>"
 #define SUCCESS 0
-#define FAIL 1 
-typedef std::string string; 
+#define FAIL 1
+#define VALIDITE_ARGS "Invalid argument"
 
+typedef std::string string;
 
 class ScalarConverter
 {
   public:
     static void convert(const string &literal);
 };
-class ExceptionError:: public exception{
+
+class ExceptionError : public std::exception
+{
   public:
-    virtual const char * what() const throw();
+    virtual const char *what() const throw();
 };
-int Check_validite_argement(const string &literal, double *base)
-{
-  char *end;
-  if(literal.size() == 3 && literal[0] == '\'' && literal[2] == '\'')
-    *base =  static_cast<double>(literal[1]); 
-  else {
-     errno = 0;
-    *base = std::strtod(literal.c_str(), &end);
-    if(*end == literal.c_str() || **end == '\0' || errno == ERANGE)
-      return false;
-  }
-  return true;
-}
-void print_char(double base)
-{
-  if(errno ==  ERANGE)
-    printLn("char :: Emposible");
-  else if(!std::isprint(static_cast<unsigned char> base)
-      printLn("char:: ");
-}
-void print_convert(double base){
-  print_char(base);
-}
-static void ScalarConverter::convert(const string &literal)
-{
-  double base;
-  if(!Check_validite_argement(literal, base))
-      throw ExceptionError(VALIDITE_ARGS);
-  print_convert(base);
-}
-int printLn(std::string &msg, int status)
-{
-  std::cout << msg << std::endl; 
-  return status;
-}
-int main(int argc, int *av[])
-{
-  if(agrc != 2)
-    return(printLn(ERORR_ARC, FAIL));
-  try{
-    ScalarConverter::convert(av[1]);
-    return(printLn("Seccuss convert", SUCCESS));
-  }
-  catch(exception &e){
-    return(printLn(e.what(),  Fail));
-  }
-}
+
+int  IsPseudoLiteral(const string &s);
+double GetPsudoLiteral(const string &s);
+int  Check_validite_argement(const string &literal, double *base, int &is_float);
+int  CPseudoLiteral(double &base);
+void print_char(double base);
+void print_int(double base);
+void print_convert(double base, int &is_float);
+int  printLn(const std::string &msg, int status);
+void print_float(double base, int is_float);
+void print_double(double base, int is_float);
