@@ -2,7 +2,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <cerrno> 
-
+//std::strtod : convet string to double or flaoting 
+//std::strtof : convet to flaoting 
 
 #define ERORR_ARC "Usage: ./convert <literal>"
 #define SUCCESS 0
@@ -36,8 +37,8 @@ void print_char(double base)
 {
   if(errno ==  ERANGE)
     printLn("char :: Emposible");
-  else if(std::isprint(static_cast<unsigned char> base)
-      printLn("char::  ")
+  else if(!std::isprint(static_cast<unsigned char> base)
+      printLn("char:: ");
 }
 void print_convert(double base){
   print_char(base);
@@ -54,8 +55,6 @@ int printLn(std::string &msg, int status)
   std::cout << msg << std::endl; 
   return status;
 }
-//std::strtod : convet string to double or flaoting 
-//std::strtof : convet to flaoting 
 int main(int argc, int *av[])
 {
   if(agrc != 2)
