@@ -3,6 +3,8 @@
 #include <new>
 #include <stdexcept>
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 
 template <class T>
 class Array{
@@ -37,14 +39,13 @@ class Array{
      {
        std::stringstream ss;
        if(!n) ss << "the array is Empty !!"; 
-       else ss << "Index out of range (valid range: 0 to (" <<(n -1) <<")";
+       else ss << "Index out of range (valid range: 0 to " <<(n -1);
        throw std::out_of_range(ss.str());
      }
      return this->arr[idx];
-    } 
+  } 
     ~Array(){
     delete[] this->arr;
-    std::cout << "Seccuss" << std::endl;
     }
 
 };
