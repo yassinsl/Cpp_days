@@ -2,14 +2,11 @@
 #include <iostream>
 #include <cstring>
 
-template<typename T, typename U>
-void element(T c, U i)
-{
-   std::cout << "element" << "["<<i<<"]: " << c << std::endl;
-}
+template<typename T>
+void element(T c){std::cout << c << std::endl;}
 
-template<typename T, typename U>
-void iter(T arr, U lenght, void (*element)(char, U))
+template<typename T, typename U, typename A>
+void iter(T arr, U lenght, void (*element)(A))
 {
-  for(unsigned int i = 0; i < lenght; ++i) (*element)(arr[i], i);
+    for(U i = 0; i < lenght; ++i) (*element)(arr[i]);
 }
