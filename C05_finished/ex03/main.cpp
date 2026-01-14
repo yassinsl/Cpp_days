@@ -7,11 +7,8 @@ int main()
     try
     {
       std::cout << "Correct case" << std::endl;
-        Intern intern;
-        AForm * rff = intern.makeForm("robbotomy request",  "Bender");
-        free(rff);
-      std::cout << "Incorrect case" << std::endl;
-        rff = intern.makeForm("Uknown name",  "Bender");
+        Intern intern std::endl;
+      rff = intern.makeForm("Uknown name",  "Bender");
     }
     catch (std::exception &e){
         std::cout << e.what() << std::endl;

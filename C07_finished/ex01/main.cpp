@@ -7,5 +7,5 @@ void element(char c , int i){
 
 int main(){
   char arr[] = {'1', '2', '3', '\0'};
-  iter(arr, std::strlen(arr), element);
+  ::iter(arr, std::strlen(arr), element);
 }

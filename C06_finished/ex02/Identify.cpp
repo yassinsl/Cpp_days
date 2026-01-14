@@ -1,4 +1,5 @@
 #include "Identify.hpp"
+#include <typeinfo>
 
 Base::~Base(){}
 Base *generate(void){
@@ -29,7 +30,7 @@ static void checkB(Base &p)
     dynamic_cast<B&>(p);
     std::cout << "B" << std::endl;
   }
-  catch (std::exception &e){}
+  catch (std::bad_cast &e){std::cout << e.what();}
 }
 
 static void checkC(Base &p)

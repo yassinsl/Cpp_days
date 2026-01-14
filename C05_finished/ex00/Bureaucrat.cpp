@@ -4,7 +4,7 @@ Bureaucrat::Bureaucrat(): grade(1), name("Bureaucrat"){
   std::cout << GREEN_DEFAULT_CTOR <<  std::endl;
 }
 
-Bureaucrat::~Bureaucrat(){}
+Bureaucrat::~Bureaucrat(){std::cout << "zbi la" << std::endl;}
 
 Bureaucrat::Bureaucrat(const string &name, int grade): grade(grade), name(name){
   std::cout << GREEN_CTOR <<  std::endl;
@@ -29,13 +29,14 @@ int Bureaucrat::getGrade() const {return this->grade;}
 
 void Bureaucrat::incrementGrade(){
   int check = this->getGrade() - 1;
+  std::cout << check << std::endl;
   if(check < 1 || check > 150) throw Bureaucrat::GradeTooHighException();
   --this->grade;
 }
 
 void Bureaucrat::decrementGrade(){
   int check = this->getGrade() + 1;
-  if( check < 1 || check > 150) throw Bureaucrat::GradeTooLowException();
+  if( check > 150) throw Bureaucrat::GradeTooLowException();
   ++this->grade;
 }
 
