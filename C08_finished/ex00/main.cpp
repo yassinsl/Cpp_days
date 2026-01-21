@@ -1,4 +1,5 @@
 #include "easyfind.hpp"
+
 int main()
 {
     try {
@@ -9,7 +10,6 @@ int main()
 
         std::vector<int>::iterator it = easyfind(v, 20);
         std::cout << "Found in vector: " << *it << std::endl;
-
         easyfind(v, 99); 
     }
     catch (const std::exception& e) {
@@ -34,13 +34,11 @@ int main()
         d.push_back(7);
         d.push_back(8);
         d.push_back(9);
-
         std::deque<int>::iterator it = easyfind(d, 7);
         std::cout << "Found in deque: " << *it << std::endl;
     }
     catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
-
     return 0;
 }
