@@ -22,6 +22,8 @@ void parse_input(const char *file_name, map &map){
 #include <stdexcept>
 #include <ctime>
 #include <iomanip>
+#include <cstdlib>
+
 //define
 #define CANNOT_OPEN_FILE "Error: Could Not Open File: "
 //typedef
@@ -51,9 +53,19 @@ std::string & remove_spaces(std::string &line)
 }
 bool valid_date(std::string date){
   struct tm;
+  
   if(!strptime(date.c_str(), "%Y-%m-%d", &tm));
     return false;
-    if()
+  if((tm.tm_year + 1900 < 0 &&  (tm.tm_year + 1900) < 2009) || (tm.tm_mon + 1 <= 0 && tm.tm_mon + 1> 12) 
+      || (tm.tm_mday <= 0 &&  tm.tm_mday > 31 )
+      return false;
+  return true;
+}
+bool valid_value(std::string &string_value, double &value){
+  char *end = NULL;
+  value = std::strtod(string_value.c_str(), end);
+  if(!end || !*end ||  value < 0.0) return false;
+  return true;
 }
 void parse_cvs(map parse_cs)
 {
@@ -66,9 +78,9 @@ void parse_cvs(map parse_cs)
     if(!(line = remove_spaces(line));
         throw std::invalid_argument("Error Line is Empty");
     pos = line.find(",");
-    // data= 2009-11-122;
+    // data= 2009-11-122, 10;
     data = remove_space(line.substr(0, pos - 1));
-    value = remove(line.substr(pos + 1, line.length()));
+    value = remove_space(line.substr(pos + 1, line.length()));
     if(!valid_date(data)) && !valid_value(value,value_n))
         throw std::invalid_argument("Error : data invlid")
     parse_cs[data] = value_n; 
