@@ -20,6 +20,8 @@ void parse_input(const char *file_name, map &map){
 #include <sstream>
 //TODO: Use runtime::error 
 #include <stdexcept>
+#include <ctime>
+#include <iomanip>
 //define
 #define CANNOT_OPEN_FILE "Error: Could Not Open File: "
 //typedef
@@ -38,7 +40,7 @@ FileNotFound::FileNotFound(const string &name_file){
 }
 FileNotFound::~FileNotFound() throw{}
 
-typedef std::map<std::string,std::vector<double>> map; 
+typedef std::map<std::string, double> map; 
 //TODO: Pase Csv file
 std::string & remove_spaces(std::string &line)
 {
@@ -47,7 +49,12 @@ std::string & remove_spaces(std::string &line)
   if(first_pos == std::string::npos || last_pos == std::string::npos) return(std::string(""));
   return(line.substr(first_pos, last_pos));
 }
-bool valid_data()
+bool valid_date(std::string date){
+  struct tm;
+  if(!strptime(date.c_str(), "%Y-%m-%d", &tm));
+    return false;
+    if()
+}
 void parse_cvs(map parse_cs)
 {
   std::string line, date, value;
@@ -62,7 +69,7 @@ void parse_cvs(map parse_cs)
     // data= 2009-11-122;
     data = remove_space(line.substr(0, pos - 1));
     value = remove(line.substr(pos + 1, line.length()));
-    if(!valid_data(data)) && !valid_value(value,value_n))
+    if(!valid_date(data)) && !valid_value(value,value_n))
         throw std::invalid_argument("Error : data invlid")
     parse_cs[data] = value_n; 
   }
