@@ -15,7 +15,7 @@ void parse_input(const char *file_name, map &map){
 
 #include <iostream>
 #include <cstdlib>
-#include <algorithms>
+#include <algorithm>
 #include <vector>
 #include <sstream>
 //TODO: Use runtime::error 
@@ -23,82 +23,22 @@ void parse_input(const char *file_name, map &map){
 #include <ctime>
 #include <iomanip>
 #include <cstdlib>
+#include <map>
 
 //define
 #define CANNOT_OPEN_FILE "Error: Could Not Open File: "
-//typedef
+typedef std::map<std::string, double> map; 
+typedef std::map<std::string, double>::iterator iterator; 
+
 //lower_bound
 //Upper_bound
 //TODO:: create a FileNotFound class
 class FileNotFound : public std::runtime_error{
   public:
-    FileNotFound(const string &name_file);
-    ~FileNotFound() throw;
-}
-FileNotFound::FileNotFound(const string &name_file){
-  std::stringstream ss;
-  ss << CANNOT_OPEN_FILE << "<< " << name_file << " >>";
-  std::runtime_error(ss.str());
-}
-FileNotFound::~FileNotFound() throw{}
+    FileNotFound(const std::string &name_file);
+    ~FileNotFound() throw();
+};
+FileNotFound::FileNotFound(const std::string &name_file) : std::runtime_error((std::string(CANNOT_OPEN_FILE) + name_file).c_str()) {}
 
-typedef std::map<std::string, double> map; 
-//TODO: Pase Csv file
-std::string & remove_spaces(std::string &line)
-{
-  std::string::size_type first_pos = line.find_first_not_of(" \n\t\r\v");
-  std::string::size_type last_pos = line.find_last_not_of(" \n\t\r\v");
-  if(first_pos == std::string::npos || last_pos == std::string::npos) return(std::string(""));
-  return(line.substr(first_pos, last_pos));
-}
-bool valid_date(std::string date){
-  struct tm;
-  
-  if(!strptime(date.c_str(), "%Y-%m-%d", &tm));
-    return false;
-  if((tm.tm_year + 1900 < 0 &&  (tm.tm_year + 1900) < 2009) || (tm.tm_mon + 1 <= 0 && tm.tm_mon + 1> 12) 
-      || (tm.tm_mday <= 0 &&  tm.tm_mday > 31 )
-      return false;
-  return true;
-}
-bool valid_value(std::string &string_value, double &value){
-  char *end = NULL;
-  value = std::strtod(string_value.c_str(), end);
-  if(!end || !*end ||  value < 0.0) return false;
-  return true;
-}
-void parse_cvs(map parse_cs)
-{
-  std::string line, date, value;
-  int pos, value_n;
-  std::ifstream file("data.csv", ios::in);
-  if(!file.is_open()) throw FileNotFound(std::string("data.cvs")); 
-  while(!std::getline(file, line))
-  {
-    if(!(line = remove_spaces(line));
-        throw std::invalid_argument("Error Line is Empty");
-    pos = line.find(",");
-    // data= 2009-11-122, 10;
-    data = remove_space(line.substr(0, pos - 1));
-    value = remove_space(line.substr(pos + 1, line.length()));
-    if(!valid_date(data)) && !valid_value(value,value_n))
-        throw std::invalid_argument("Error : data invlid")
-    parse_cs[data] = value_n; 
-  }
-}
+FileNotFound::~FileNotFound() throw(){}
 
-void PrintLine(const char *msg){
-  std::cout << *msg << std::endl;
-  exit(1);
-}
-int main(int ac, char **av)
-{
-  map parse_data, parse_cs;
-  if (ac != 2) 
-    PrintLine(CANNOT_OPEN_FILE);
-  try{
-      parse_cvs(parse_cs);
-      parse_input(av[ac - 1]);
-  }
-  catch(std::exception &e){PrintLine(e.what());} 
-}
