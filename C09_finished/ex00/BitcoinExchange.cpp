@@ -61,6 +61,7 @@ void parse_cvs(map &parse_cs)
   if(!file.is_open()) throw FileNotFound(std::string("data.cvs"));
   while(std::getline(file, line))
   {
+    if(line == "date,exchange_rate") continue;
     line = remove_spaces(line);
     pos = line.find(",");
     date = remove_spaces(line.substr(0, pos));
