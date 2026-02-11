@@ -6,6 +6,7 @@
 #include <cctype>
 #include <climits>
 #include <stdexcept>
+#include <cmath>
 
 typedef std::vector<int>::iterator iterator;
 typedef std::vector<std::pair<int, int>> pair_vector;
@@ -58,8 +59,14 @@ static void sort_arr(std::vector<int> &arr, size_t n) {
     sort_arr(arr, n - 1);
   }
 }
-int using_bin_search(std::vector<int> &main_chain, int idx, int num){
-
+std::vector<int>::iterator& using_bin_search(std::vector<int> &main_chain, int idx, int num){
+	for(int i = 0; i <= idx; ++i){
+		int m = i + floor((idx - i)/2);
+		if(main_chain[m] < num) i = m + 1;
+		else if(main_chain[m] > num) idx = m - 1;
+		else  return(main_chain[m]);
+	}
+	return -1;
 }
 template <typename T>
 void PmergeMe::start_sort(T &random_container) {
@@ -84,8 +91,18 @@ void PmergeMe::start_sort(T &random_container) {
       std::vector<int>::iterator it = std::find(hi_list.begin(), hi_list.end(), pair->first);
       if(it == hi_list.end()) std::invalid_argument("Error");
       int pos = std::distance(hi_list.begin(), it);
-      upper = using_bin_search(hi_list, pos, low_list.front());
+      std::vector<int>::iterator &upper = using_bin_search(hi_list, pos, low_list.front());
+      std::vector<int>::iterator new_pos = std::lower_bound(hi_list.begin(), upper, low_list.front());
+    hi_list.insert(new_pos, low_list.front());
+    low_list.erase(low_list.begin());
   }
+ random_container = hi_list;
+  std::cout << "after: ";
+  for (iterator it = this->random_container.begin(); it != this->random_container.end(); ++it) {
+    if ((it + 1) != this->random_container.end()) std::cout << *it << " ";
+    else  std::cout << *it;
+  }
+  std::cout << std::endl;
 }
 
 void PmergeMe::display_before(void) {
