@@ -8,7 +8,7 @@
 #include <stdexcept>
 
 typedef std::vector<int>::iterator iterator;
-typedef std::vector<std::pair<int, int> > pair_vector;
+typedef std::vector<std::pair<int, int>> pair_vector;
 
 class PmergeMe {
 private:
@@ -58,7 +58,9 @@ static void sort_arr(std::vector<int> &arr, size_t n) {
     sort_arr(arr, n - 1);
   }
 }
+int using_bin_search(std::vector<int> &main_chain, int idx, int num){
 
+}
 template <typename T>
 void PmergeMe::start_sort(T &random_container) {
   int straggeler = 0;
@@ -82,7 +84,7 @@ void PmergeMe::start_sort(T &random_container) {
       std::vector<int>::iterator it = std::find(hi_list.begin(), hi_list.end(), pair->first);
       if(it == hi_list.end()) std::invalid_argument("Error");
       int pos = std::distance(hi_list.begin(), it);
-
+      upper = using_bin_search(hi_list, pos, low_list.front());
   }
 }
 
