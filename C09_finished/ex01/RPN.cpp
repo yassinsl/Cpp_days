@@ -1,62 +1,61 @@
 #include "RPN.hpp"
 
-int add(int a, int b){return a + b;}
-
-int sub(int a, int b){return a - b;}
-
-int mul(int a, int b){return a * b;}
-
-int dive(int a, int b){
-  if(!b) throw std::runtime_error("Math Error: Attempted to divide no zero!");
-  return a / b;
+void GetNumber(int &right, int &left, std::stack<int> &stack)
+{
+  right = stack.top();
+  stack.pop();
+  left = stack.top();
+  stack.pop();
+}
+void add(std::stack<int> & stack)
+{
+  int right, left;
+  GetNumber(right, left, stack);
+  stack.push(left + right);
 }
 
-bool check_operator(char op){return (op == '+' || op == '-' || op == '*' || op == '/');} 
+void sub(std::stack<int>&stack){
+  int right, left;
 
-std::vector<std::string> split(char *str, const char *delims) {
-    std::vector<std::string> result;
-    char *token = std::strtok(str, delims);
-    while (token) {
-        result.push_back(token);
-        token = std::strtok(NULL, delims);
-    }
-    return result;
+  GetNumber(right, left, stack);
+  stack.push(left - right);
 }
 
-void get_value(std::stack<int> &stack, char c){
- int (*calucaltion[4])(int, int) = {add, sub, mul ,dive};
- std::string op = "+-*/";
+void mul(std::stack<int> &stack){
+  int right, left;
 
-  if(stack.empty())
-    throw std::invalid_argument("Error: Empty Stack");
-  else if (stack.size() == 1)
-    throw std::invalid_argument("Error: stack has fewer than two operands before applying an operator");
-  int right = stack.top();
-    stack.pop();
-  int left = stack.top();
-    stack.pop();
-  for (size_t i = 0 ; i < op.size(); ++i)
-    if(op[i] == c)
-      stack.push((*calucaltion[i])(left, right));
+  GetNumber(right, left, stack);
+  stack.push(left * right);
 }
 
-void display_value(std::stack<int> & stack){
-  if(stack.size() != 1 || stack.empty())
-    throw std::invalid_argument("Error: Empty Stack or Invalid Argument");
-  std::cout << stack.top() << std::endl;
+void dive(std::stack<int> & stack)
+{
+  int right, left;
+
+  GetNumber(right, left, stack);
+  if(!right) throw std::runtime_error("Math Error: Attempted to divide no zero!");
+  stack.push(left / right);
 }
 
-void Reverse_Polish_Notation(char *str){
-  std::stack<int> reverse_stack;
+size_t check_operator(char op){
+  std::string ops = "+-*/";
+  return(ops.find(op));
+} 
 
-  std::vector<std::string> tokens = split(str, " \n\t\r\v");
-  for(iterator it = tokens.begin(); it != tokens.end(); ++it){
-    if(it->size() != 1) throw(std::invalid_argument("Error : Invalid Size in Argements"));
-    else if(std::isdigit(static_cast<unsigned char>((*it)[0])))
-       reverse_stack.push((*it)[0] - 48);
-    else if(check_operator(static_cast<char>((*it)[0])))
-      get_value(reverse_stack, (*it)[0]);
-    else throw(std::invalid_argument("Error : Invalid Operator & Number"));
+void Reverse_Polish_Notation(char *str)
+{
+  std::stack<int> stack;
+  size_t lc;
+  void (*calucaltion[4])(std::stack<int>&) = {add, sub, mul ,dive};
+
+  for(int i = 0; str[i]; i++){
+    if(std::isspace(str[i])) continue;
+    else if(std::isdigit(str[i]))
+      stack.push(atoi(&str[i]));
+    else if((lc =check_operator(str[i]))  != std::string::npos && stack.size() >= 2)
+      calucaltion[lc](stack);
+    else throw std::invalid_argument("Error");
   }
-  display_value(reverse_stack);
+  if(stack.size() > 1) throw std::invalid_argument("Error");
+  std::cout  << stack.top() << std::endl;
 }
