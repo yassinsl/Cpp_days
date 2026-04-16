@@ -1,117 +1,88 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <deque>
-#include <utility>
-#include <cctype>
-#include <climits>
-#include <stdexcept>
-#include <cmath>
+#include "PmergeMe.hpp"
 
-typedef std::vector<int>::iterator iterator;
-typedef std::vector<std::pair<int, int>> pair_vector;
-
-class PmergeMe {
-private:
-  std::vector<int> container1;
-  std::deque<int>  container2;
-
-public:
-  PmergeMe(const PmergeMe &other);
-  PmergeMe &operator=(const PmergeMe &other);
-  PmergeMe(char **args);
-
-  bool is_space(char *str);
-  void display_before(void);
-  int atoi(char *str);
-
-  template <typename T>
-  void start_sort(T &r_container);
-
-  template <typename T>
-  pair_vector build_pair_container(T &r_container);
-};
-
-template <typename T>
-pair_vector PmergeMe::build_pair_container(T &r_container) {
-  pair_vector pairs;
-
-  typename T::iterator it = r_container.begin();
-  while (it != r_container.end() && (it + 1) != r_container.end()) {
-    pairs.push_back(std::make_pair(*it, *(it + 1)));
-    it += 2;
-  }
-  return pairs;
-}
-
-static void swap_vec(std::vector<int> &arr, size_t i, size_t j) {
-  int tmp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = tmp;
-}
-
-static void sort_arr(std::vector<int> &arr, size_t n) {
-  if (n > 0) {
-    for (size_t i = 0; i < n; ++i) {
-      if (arr[i] > arr[n - 1])
-        swap_vec(arr, i, n - 1);
-    }
-    sort_arr(arr, n - 1);
-  }
-}
-std::vector<int>::iterator& using_bin_search(std::vector<int> &main_chain, int idx, int num){
-	for(int i = 0; i <= idx; ++i){
-		int m = i + floor((idx - i)/2);
-		if(main_chain[m] < num) i = m + 1;
-		else if(main_chain[m] > num) idx = m - 1;
-		else  return(main_chain[m]);
-	}
-	return -1;
-}
-template <typename T>
-void PmergeMe::start_sort(T &random_container) {
-  int straggeler = 0;
-  std::vector<int> hi_list;
-  std::vector<int> low_list;
-
-  if (random_container.size() % 2) {
-    straggeler = random_container.back();
-    random_container.pop_back();
-  }
-  pair_vector pairs = build_pair_container(random_container);
-  for (pair_vector::iterator it = pairs.begin(); it != pairs.end(); ++it) {
-    if (it->first < it->second)
-      std::swap(it->first, it->second);
-    hi_list.push_back(it->first);
-    low_list.push_back(it->second);
-  }
-  sort_arr(hi_list, hi_list.size());
-  for(pair_vector::iterator pair = pairs.begin(); pair != pairs.end(); ++pair
-  {
-      std::vector<int>::iterator it = std::find(hi_list.begin(), hi_list.end(), pair->first);
-      if(it == hi_list.end()) std::invalid_argument("Error");
-      int pos = std::distance(hi_list.begin(), it);
-      std::vector<int>::iterator &upper = using_bin_search(hi_list, pos, low_list.front());
-      std::vector<int>::iterator new_pos = std::lower_bound(hi_list.begin(), upper, low_list.front());
-    hi_list.insert(new_pos, low_list.front());
-    low_list.erase(low_list.begin());
-  }
- random_container = hi_list;
+void PmergeMe::display_after(void) {
   std::cout << "after: ";
-  for (iterator it = this->random_container.begin(); it != this->random_container.end(); ++it) {
-    if ((it + 1) != this->random_container.end()) std::cout << *it << " ";
-    else  std::cout << *it;
-  }
-  std::cout << std::endl;
-}
-
-void PmergeMe::display_before(void) {
-  std::cout << "Before: ";
   for (iterator it = this->container1.begin(); it != this->container1.end(); ++it) {
     if ((it + 1) != this->container1.end()) std::cout << *it << " ";
     else  std::cout << *it;
   }
   std::cout << std::endl;
+}
+template <typename T>
+T PmergeMe::start_sort(T random_container) {
+  if (random_container.size() <= 1) return random_container;
+  if (random_container.size() == 2) {
+    if (random_container[0] > random_container[1])
+      std::swap(random_container[0], random_container[1]);
+    return random_container;
+  }
+  pair_vector pairs_number;
+  bool has_straggler = false;
+  int straggler = 0;
+
+  if (random_container.size() % 2 != 0) {
+    typename T::iterator last = random_container.end();
+    straggler = *last;
+    random_container.erase(last);
+    has_straggler = true;
+  }
+
+  for (typename T::iterator it = random_container.begin(); it != random_container.end(); it += 2) {
+    int a = *it;
+    int b = *(it + 1);
+    if (a >= b)
+      pairs_number.push_back(std::make_pair(a, b));
+    else
+      pairs_number.push_back(std::make_pair(b, a));
+  }
+
+  std::vector<int> sorted_larger;
+  std::vector<int> pending;
+  for (size_t i = 0; i < pairs_number.size(); ++i) {
+    sorted_larger.push_back(pairs_number[i].first);
+    pending.push_back(pairs_number[i].second);
+  }
+  sorted_larger = start_sort(sorted_larger);
+
+  std::vector<int> main_chain = sorted_larger;
+  for (size_t i = 0; i < pending.size(); ++i) {
+    std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), pending[i]);
+    main_chain.insert(pos, pending[i]);
+  }
+  if (has_straggler) {
+    std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), straggler);
+    main_chain.insert(pos, straggler);
+  }
+
+  T result(main_chain.begin(), main_chain.end());
+  return result;
+}
+
+void PmergeMe::display_before(void) {
+    struct timeval start, end, start1, end1;
+    double total_time, total_time1;
+
+    std::cout << "Before: ";
+    for (iterator it = this->container1.begin(); it != this->container1.end(); ++it) {
+        if ((it + 1) != this->container1.end()) std::cout << *it << " ";
+        else  std::cout << *it;
+    }
+    std::cout << std::endl;
+
+    gettimeofday(&start, NULL);
+    this->container1 = this->start_sort(container1);
+    gettimeofday(&end, NULL);
+
+    gettimeofday(&start1, NULL);
+    this->container2 = this->start_sort(container2);
+    gettimeofday(&end1, NULL);
+
+    total_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
+    total_time1 = (end1.tv_sec - start1.tv_sec) * 1000000.0 + (end1.tv_usec - start1.tv_usec);
+
+    this->display_after();
+    std::cout << "Time to process a range of " << container1.size() << " element with std::vector :" << total_time << "us" << std::endl;
+    std::cout << "Time to process a range of " << container1.size() << " element with std::deque :" << total_time1 << "us" << std::endl;
 }
 
 bool PmergeMe::is_space(char *str) {
@@ -132,8 +103,7 @@ int PmergeMe::atoi(char *str) {
   int sign = 1;
   long long value = 0;
 
-  while (*str && std::isspace(static_cast<unsigned char>(*str)))
-    ++str;
+  while (*str && std::isspace(static_cast<unsigned char>(*str))) ++str;
   if (*str == '-' || *str == '+') {
     if (*str == '-')
       sign = -1;
@@ -167,16 +137,5 @@ PmergeMe::PmergeMe(char **args) {
       throw std::invalid_argument("Error");
     this->container1.push_back(value);
     this->container2.push_back(value);
-  }
-}
-
-int main(int ac, char **av) {
-  try {
-    if (ac < 2)
-      throw std::invalid_argument("Error");
-    PmergeMe sorted_obj(av);
-    sorted_obj.display_before();
-  } catch (std::exception &e) {
-    std::cerr << e.what() << std::endl;
   }
 }
