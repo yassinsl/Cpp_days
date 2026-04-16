@@ -10,52 +10,69 @@ void PmergeMe::display_after(void) {
 }
 template <typename T>
 T PmergeMe::start_sort(T random_container) {
-  if (random_container.size() <= 1) return random_container;
-  if (random_container.size() == 2) {
-    if (random_container[0] > random_container[1])
-      std::swap(random_container[0], random_container[1]);
-    return random_container;
-  }
-  pair_vector pairs_number;
-  bool has_straggler = false;
-  int straggler = 0;
+    if (random_container.size() <= 1) return random_container;
+    if (random_container.size() == 2) 
+    {
+        if (random_container[0] > random_container[1]) std::swap(random_container[0], random_container[1]);
+        return random_container;
+    }
 
-  if (random_container.size() % 2 != 0) {
-    typename T::iterator last = random_container.end();
-    straggler = *last;
-    random_container.erase(last);
-    has_straggler = true;
-  }
+    pair_vector pairs_number;
+    bool has_straggler = false;
+    int straggler = 0;
 
-  for (typename T::iterator it = random_container.begin(); it != random_container.end(); it += 2) {
-    int a = *it;
-    int b = *(it + 1);
-    if (a >= b)
-      pairs_number.push_back(std::make_pair(a, b));
-    else
-      pairs_number.push_back(std::make_pair(b, a));
-  }
+    if (random_container.size() % 2 != 0) {
+        typename T::iterator last = random_container.end();
+        --last;
+        straggler = *last;
+        random_container.erase(last);
+        has_straggler = true;
+    }
 
-  std::vector<int> sorted_larger;
-  std::vector<int> pending;
-  for (size_t i = 0; i < pairs_number.size(); ++i) {
-    sorted_larger.push_back(pairs_number[i].first);
-    pending.push_back(pairs_number[i].second);
-  }
-  sorted_larger = start_sort(sorted_larger);
+    for (typename T::iterator it = random_container.begin(); it != random_container.end(); it += 2) {
+        int a = *it;
+        int b = *(it + 1);
+        if (a >= b)
+            pairs_number.push_back(std::make_pair(a, b));
+        else
+            pairs_number.push_back(std::make_pair(b, a));
+    }
 
-  std::vector<int> main_chain = sorted_larger;
-  for (size_t i = 0; i < pending.size(); ++i) {
-    std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), pending[i]);
-    main_chain.insert(pos, pending[i]);
-  }
-  if (has_straggler) {
-    std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), straggler);
-    main_chain.insert(pos, straggler);
-  }
+    std::vector<int> sorted_larger;
+    std::vector<int> pending;
+    for (size_t i = 0; i < pairs_number.size(); ++i) {
+        sorted_larger.push_back(pairs_number[i].first);
+        pending.push_back(pairs_number[i].second);
+    }
+    sorted_larger = start_sort(sorted_larger);
 
-  T result(main_chain.begin(), main_chain.end());
-  return result;
+    std::vector<int> main_chain = sorted_larger;
+    size_t pending_size = pending.size();
+    size_t k = 2;
+    const int jacobstar[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};
+
+    while (1) 
+    {
+        size_t end_group = jacobstar[k];
+        
+        end_group = std::min(end_group, pending_size);
+        size_t start_group = jacobstar[k - 1];
+        if (start_group >= pending_size) break;
+        for (size_t i = end_group; i > start_group; --i) {
+            int val_to_insert = pending[i - 1];
+            int larger_pair = sorted_larger[i - 1];
+            std::vector<int>::iterator bound = std::lower_bound(main_chain.begin(), main_chain.end(), larger_pair);
+            std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), bound, val_to_insert);
+            main_chain.insert(pos, val_to_insert);
+        }
+        k++;
+    }
+    if (has_straggler) {
+        std::vector<int>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), straggler);
+        main_chain.insert(pos, straggler);
+    }
+    T result(main_chain.begin(), main_chain.end());
+    return result;
 }
 
 void PmergeMe::display_before(void) {
