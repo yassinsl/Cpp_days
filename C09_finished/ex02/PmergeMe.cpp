@@ -45,16 +45,32 @@ T PmergeMe::start_sort(T random_container) {
         pending.push_back(pairs_number[i].second);
     }
     sorted_larger = start_sort(sorted_larger);
+    std::vector<int> ordered_pending;
+    std::vector<bool> used_pair(pairs_number.size(), false);
 
+    for (size_t i = 0; i < sorted_larger.size(); ++i) {
+      for (size_t j = 0; j < pairs_number.size(); ++j) {
+        if (!used_pair[j] && pairs_number[j].first == sorted_larger[i]) {
+          ordered_pending.push_back(pairs_number[j].second);
+          used_pair[j] = true;
+          break;
+        }
+      }
+    }
+    pending = ordered_pending;
     std::vector<int> main_chain = sorted_larger;
     size_t pending_size = pending.size();
-    size_t k = 2;
+    size_t k = 1;
+
     const int jacobstar[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};
 
+    if (pending_size > 0) {
+      int first_pending = pending[0];
+      main_chain.insert(main_chain.begin(), first_pending);
+    }
     while (1) 
     {
         size_t end_group = jacobstar[k];
-        
         end_group = std::min(end_group, pending_size);
         size_t start_group = jacobstar[k - 1];
         if (start_group >= pending_size) break;
