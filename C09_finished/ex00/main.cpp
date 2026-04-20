@@ -1,5 +1,5 @@
 #include "BitcoinExchange.hpp"
-
+void parse_input( char *Filename , map &parse_cs);
 int main(int ac, char **av)
 {
   //TODO: <string double> 
